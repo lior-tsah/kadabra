@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState(""); 
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  const isActiveBtn = userName.length > 0 && password.length > 0;
   const submit = async () => {
     console.log(userName);
     console.log(password);
-    navigate("board");
+    // navigate("board");
+  };
+
+  const onInputChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    setState: (val: string) => void
+  ) => {
+    setState(e.target.value);
   };
 
   return (
@@ -22,43 +30,32 @@ const Login: React.FC = () => {
         <div className="form-login-bottom">
           <div className="form-input-title">Login</div>
           <div className="form-input-container">
-            <input className="form-input-content" placeholder="Enter email" />
             <input
               className="form-input-content"
-              placeholder="Enter password"
+              placeholder="Enter email"
+              value={userName}
+              onChange={(e) => onInputChange(e, setUserName)}
             />
-            <button className="btn" onClick={submit}>
-              <label className="btn-label">Login</label>
+            <input
+              type="password"
+              className="form-input-content"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => onInputChange(e, setPassword)}
+            />
+            <button
+              className={`btn ${isActiveBtn ? "" : "btn-disabled"}`}
+              disabled={!isActiveBtn}
+              onClick={submit}
+            >
+              <label
+                className={`btn-label ${isActiveBtn ? "color-white" : ""}`}
+              >
+                Login
+              </label>
             </button>
           </div>
         </div>
-
-        {/* 
-        <div className="form-input">
-          <div className="form-input-title">Username</div>
-          <input
-            className="form-input-content"
-            placeholder="Username / Email"
-            onChange={(e) => {
-              setUserName(e.target.value);
-            }}
-          ></input>
-        </div>
-
-        <div className="form-input">
-          <div className="form-input-title">Password</div>
-          <input
-            className="form-input-content"
-            placeholder="Password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            type="password"
-          ></input>
-        </div>
-        <button className="form-input-content btn" onClick={submit}>
-          Save
-        </button> */}
       </div>
     </div>
   );
