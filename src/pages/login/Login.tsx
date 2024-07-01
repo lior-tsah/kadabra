@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Logo from "../../assets/logo-kadabra.svg";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
@@ -10,7 +11,7 @@ const Login: React.FC = () => {
   const submit = async () => {
     console.log(userName);
     console.log(password);
-    // navigate("board");
+    navigate("/dashboard");
   };
 
   const onInputChange = (
@@ -25,7 +26,7 @@ const Login: React.FC = () => {
       <div className="form-login-container">
         <div className="form-login-top">
           <div className="form-login-title">Welcome To</div>
-          <img src="" alt="icon" className="login-logo" />
+          <img src={Logo} alt="icon" className="login-logo" />
         </div>
         <div className="form-login-bottom">
           <div className="form-input-title">Login</div>

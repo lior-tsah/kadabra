@@ -97,9 +97,14 @@
 }
 
 .btn-disabled {
-    background: #E1E1E1;
+    background: #E1E1E1 !important;
+    border: none !important;
 }
 
+.login-logo {
+    width: 280px;
+    height: 60px;
+}
 
 .btn-label {
     cursor: pointer;
