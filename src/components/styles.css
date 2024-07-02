@@ -25,3 +25,36 @@
     justify-content: center;
     align-items: center;
 }
+
+.no-data-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 72px;
+}
+
+.no-data-top-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.no-data-title {
+    color: #000;
+    font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 132%;
+}
+
+.no-data-description {
+    color: rgba(0, 0, 0, 0.60);
+    text-align: center;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 132%;
+}
