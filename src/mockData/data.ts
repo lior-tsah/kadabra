@@ -1,4 +1,3 @@
-import { IpInfo } from "./data";
 export interface NetworkInterface {
   interface: string;
   ip_address: string;

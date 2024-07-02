@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 
-const LoginButton = ({ onLoginSuccess, onLoginFailure }) => {
+const LoginButton = ({ onLoginSuccess, onLoginFailure }: any) => {
   const login = useGoogleLogin({
     onSuccess: onLoginSuccess,
     onError: onLoginFailure,
