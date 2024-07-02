@@ -23,7 +23,7 @@ interface SideBarItem {
 }
 
 const SideBar: React.FC = () => {
-  const [selectedItem, setSelectedItem] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState(0);
   const sideBarItems: SideBarItem[] = [
     {
       icon: Dash,
