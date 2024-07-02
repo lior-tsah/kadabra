@@ -8,7 +8,7 @@ interface WrapperProps {
   children: JSX.Element;
 }
 
-const Wrapper = ({ children }: WrapperProps) => {
+const WrapperPage = ({ children }: WrapperProps) => {
   const wrapperRef = useRef<any>(null);
 
   useEffect(() => {
@@ -46,4 +46,4 @@ const Wrapper = ({ children }: WrapperProps) => {
   );
 };
 
-export default Wrapper;
+export default WrapperPage;

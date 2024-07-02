@@ -1,12 +1,14 @@
 import "./Dashboard.css";
 import { useState } from "react";
 import NoDataAvaliable from "../../components/NoDataAvaliable";
+import DashboardContent from "./DashboardContent";
+import { useData } from "../../context/DataContext";
 const Dashboard: React.FC = () => {
-  const [data, setData] = useState();
 
+  const {data} = useData();
   const renderDashboardData = (data: any) => {
     if (data) {
-      return null;
+      return <DashboardContent data={data}/>;
     } else {
       return <NoDataAvaliable />;
     }
@@ -16,7 +18,7 @@ const Dashboard: React.FC = () => {
       <div className="title-container">
         <label className="title">Dashboard</label>
       </div>
-      <div className="dashboard-content">{renderDashboardData(data)}</div>
+      {renderDashboardData(data)}
     </div>
   );
 };

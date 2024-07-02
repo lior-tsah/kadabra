@@ -2,6 +2,7 @@ import { useState } from "react";
 import Logo from "../../assets/logo-kadabra.svg";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import LoginViaGoogle from "./LoginViaGoogle";
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState("");
@@ -57,6 +58,7 @@ const Login: React.FC = () => {
             </button>
           </div>
         </div>
+      <LoginViaGoogle/>
       </div>
     </div>
   );

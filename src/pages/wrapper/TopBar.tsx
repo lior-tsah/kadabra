@@ -1,13 +1,19 @@
-import Search from "../../components/Search.tsx";
-import Notifications from "../../assets/top-bar-icons/notifications.svg"; 
-import AccountCircle from "../../assets/top-bar-icons/account-circle.svg"; 
+import Notifications from "../../assets/top-bar-icons/notifications.svg";
+import AccountCircle from "../../assets/top-bar-icons/account-circle.svg";
+import { useData } from "../../context/DataContext";
+import { mockData } from "../../mockData/data";
+import SearchInput from "../../components/SearchInput";
 
 const Topbar = () => {
+  const { setData } = useData();
+
   return (
     <div className="navbar">
-      <Search />
+      <SearchInput />
       <div className="div">
-        <button className="button-instance">Execute</button>
+        <button className="button-instance" onClick={() => setData(mockData)}>
+          Discover
+        </button>
         <img className="img" alt="Notifications" src={Notifications} />
         <img className="img" alt="Account circle" src={AccountCircle} />
       </div>

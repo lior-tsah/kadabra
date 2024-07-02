@@ -1,7 +1,7 @@
-import React from "react";
 import SearchIcon from "../assets/top-bar-icons/search.svg";
 import "./styles.css";
-const Search: React.FC = () => {
+
+const SearchInput = () => {
   return (
     <div className="search-input">
       <input className="input-btn-txt" placeholder="Search" />
@@ -9,4 +9,4 @@ const Search: React.FC = () => {
     </div>
   );
 };
-export default Search;
+export default SearchInput;
