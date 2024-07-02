@@ -34,7 +34,7 @@ const SideBar: React.FC = () => {
     {
       icon: Visibility,
       name: "Visibility",
-      route: "/dashboard",
+      route: "/home",
       selectedIcon: VisibilityBlue,
     },
     {

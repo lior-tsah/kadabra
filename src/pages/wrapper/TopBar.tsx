@@ -1,21 +1,17 @@
+import Search from "../../components/Search.tsx";
+import Notifications from "../../assets/top-bar-icons/notifications.svg"; 
+import AccountCircle from "../../assets/top-bar-icons/account-circle.svg"; 
 
-const TopBar: React.FC = () => {
-
-
-
+const Topbar = () => {
   return (
-    <div className="topbar-container">
-      <div className="right-topbar">
-        <div className="user-details-topbar">
-          <div className="user-titles">
-            <div className="main-title">user title</div>
-            <div className="sub-title">user sub title</div>
-          </div>
-          <div className="user-icon">
-          </div>
-        </div>
+    <div className="navbar">
+      <Search />
+      <div className="div">
+        <button className="button-instance">Execute</button>
+        <img className="img" alt="Notifications" src={Notifications} />
+        <img className="img" alt="Account circle" src={AccountCircle} />
       </div>
     </div>
   );
 };
-export default TopBar;
+export default Topbar;
