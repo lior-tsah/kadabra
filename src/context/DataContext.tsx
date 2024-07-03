@@ -1,5 +1,6 @@
 // CameraContext.js
 import { createContext, useState, useContext } from "react";
+import { PassiveDiscoverData } from "../mockData/data";
 
 interface DataContextType {
   data: any;
@@ -14,7 +15,7 @@ const DataContext = createContext<DataContextType>({
 export const useData = () => useContext(DataContext);
 
 export const DataProvider = ({ children }: any) => {
-  const [data, setData] = useState<any>();
+  const [data, setData] = useState<PassiveDiscoverData>();
 
   return (
     <DataContext.Provider

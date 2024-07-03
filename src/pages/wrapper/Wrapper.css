@@ -23,13 +23,16 @@
 }
 
 .item {
-    cursor: pointer;
     display: flex;
     cursor: pointer;
     padding: 12px;
     align-items: center;
     gap: 8px;
     align-self: stretch;
+}
+
+.item:hover {
+  background: #ededed;
 }
 
 .selected-item {
