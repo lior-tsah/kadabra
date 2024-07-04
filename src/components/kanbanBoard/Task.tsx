@@ -1,33 +1,42 @@
 import React from "react";
-import { Draggable } from "react-beautiful-dnd";
-import { Task as TaskType } from "./types";
+import { Column, Task as TaskType } from "./types";
 
 interface TaskProps {
   task: TaskType;
   index: number;
+  column: Column;
 }
 
-const Task: React.FC<TaskProps> = ({ task, index }) => {
+const Task: React.FC<TaskProps> = ({ task, index, column }) => {
+  const handleDragOver = (event: any) => {
+    event.preventDefault();
+  };
+
+
+  const handleDragStart = (event: any, task: any) => {
+    event.dataTransfer.setData("task", JSON.stringify(task));
+    event.dataTransfer.setData("column", JSON.stringify(column));
+  };
   return (
-    <Draggable draggableId={task.id} index={index}>
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          style={{
-            padding: 16,
-            margin: "0 0 8px 0",
-            backgroundColor: "white",
-            border: "1px solid lightgrey",
-            borderRadius: 2,
-            ...provided.draggableProps.style,
-          }}
-        >
-          {task.content}
-        </div>
-      )}
-    </Draggable>
+    <div
+      onDragStart={(e) => handleDragStart(e, task)}
+      onDragOver={handleDragOver}
+      // onDrop={(e) => handleDrop(e, camera)}
+      // onClick={(e) => onCheckItem(e, camera)}
+      draggable
+    >
+      <div
+        style={{
+          padding: 16,
+          margin: "0 0 8px 0",
+          backgroundColor: "white",
+          border: "1px solid lightgrey",
+          borderRadius: 2,
+        }}
+      >
+        {task.content}
+      </div>
+    </div>
   );
 };
 

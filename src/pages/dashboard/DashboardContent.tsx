@@ -42,7 +42,6 @@ const DashboardContent = ({ data }: Props) => {
     return res;
   }, [data.agents]);
 
-  console.log();
   const bottomCardProps = [
     {
       title: "Overall devices detected",
@@ -61,7 +60,11 @@ const DashboardContent = ({ data }: Props) => {
     <div className="dashboard-content">
       {!isExpand ? (
         <>
-          <ConnectionMap expandBtn={Expand} setExpand={setExpand} />
+          <ConnectionMap
+            expandBtn={Expand}
+            isExpand={isExpand}
+            setExpand={setExpand}
+          />
           <div className="middle-cards-container">
             <div className="card middle-left-card">
               <div className="card-title-container">
