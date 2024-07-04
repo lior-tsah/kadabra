@@ -67,3 +67,48 @@
     justify-content: center;
     align-self: center;
 }
+
+.status-table-container {
+    display: flex;
+    width: fit-content;
+    padding: 4px 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 60px;
+}
+
+.status-table {
+    font-family: Poppins;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 132%;
+}
+
+.high {
+    border: 1px solid #F55858;
+    background: rgba(245, 88, 88, 0.20);
+}
+
+.medium {
+    border: 1px solid #F5C958;
+    background: rgba(245, 201, 88, 0.10);
+}
+
+.low {
+    border: 1px solid #00A800;
+    background: rgba(0, 168, 0, 0.1);
+}
+
+.high-title {
+    color: #F55858;
+}
+
+.medium-title {
+    color: #F5C958;
+}
+
+.low-title {
+    color: #00A800;
+}

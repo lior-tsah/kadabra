@@ -49,11 +49,16 @@
     gap: 16px;
 }
 
+.limit-top-card {
+    max-height: 25vh;
+}
+
 .middle-cards-container {
     display: flex;
     flex: 4;
     flex-direction: row;
     gap: 16px;
+    max-height: 33.33vh;
 }
 
 .middle-left-card {
@@ -105,4 +110,29 @@
     font-style: normal;
     font-weight: 600;
     line-height: 132%;
+}
+
+.bottom-card-description-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bottom-card-description {
+    color: var(--Black-B80, #333);
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 132%;
+}
+
+.bottom-card-number {
+    color: var(--Shades-of-black-Black, #000);
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 132%;
+    /* 31.68px */
 }

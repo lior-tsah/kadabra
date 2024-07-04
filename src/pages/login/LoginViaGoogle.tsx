@@ -13,7 +13,7 @@ const LoginViaGoogle = () => {
   };
 
   return (
-    <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
+    <GoogleOAuthProvider clientId="363865327063-l00llh6dcje29dtkhsup81arop3dmahs.apps.googleusercontent.com">
       <div className="App">
         <LoginButton
           onLoginSuccess={handleLoginSuccess}

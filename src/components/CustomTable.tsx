@@ -11,8 +11,37 @@ import PropTypes from "prop-types";
 import ThreeDots from "../assets/components-icons/three-dots.svg";
 
 const CustomTable = ({ columns, data }: any) => {
+  const getStatus = (data: number) => {
+    let res = "High";
+    if (data < 4) res = "Low";
+    else if (data < 8) res = "Medium";
+    return res;
+  };
+  const renderCell = (row: any, col: any) => {
+    switch (col.type) {
+      case "status": {
+        const status = getStatus(row[col.field]);
+        return (
+          <div className={`status-table-container ${status.toLowerCase()}`}>
+            <label className={`status-table ${status.toLowerCase()}-title`}>
+              {status}
+            </label>
+          </div>
+        );
+      }
+      default:
+        return <>{row[col.field]}</>;
+    }
+  };
   return (
-    <TableContainer component={Paper} sx={{ display: "flex", width: "90%" }}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        display: "flex",
+        width: "90%",
+        boxShadow: "none",
+      }}
+    >
       <Table>
         <TableHead>
           <TableRow>
@@ -32,10 +61,14 @@ const CustomTable = ({ columns, data }: any) => {
               onClick={row.onClick}
             >
               {columns.map((column: any) => (
-                <TableCell key={column.field}>{row[column.field]}</TableCell>
+                <TableCell key={column.field}>
+                  {renderCell(row, column)}
+                </TableCell>
               ))}
               <TableCell>
-                <img src={ThreeDots} className="input-svg pointer" />
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <img src={ThreeDots} className="input-svg pointer" />
+                </div>
               </TableCell>
             </TableRow>
           ))}
