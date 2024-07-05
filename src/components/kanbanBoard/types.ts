@@ -1,6 +1,8 @@
 export interface Task {
-  id: string;
-  content: string;
+  ip_address: string;
+  interface: string;
+  netmask: string;
+  broadcast: string;
 }
 
 export interface Column {

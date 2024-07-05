@@ -14,7 +14,6 @@ const KanbanColumn: React.FC<ColumnProps> = ({ column, tasks, onDragEnd }) => {
       <h2>{column.title}</h2>
       <>
         <div
-          draggable
           onDragOver={(e) => e.preventDefault()}
           onDrop={(e) => onDragEnd(e, column)}
           style={{
@@ -25,7 +24,7 @@ const KanbanColumn: React.FC<ColumnProps> = ({ column, tasks, onDragEnd }) => {
           }}
         >
           {tasks.map((task, index) => (
-            <Task key={task.id} task={task} index={index} column={column} />
+            <Task key={task.ip_address} task={task} index={index} column={column} />
           ))}
         </div>
       </>

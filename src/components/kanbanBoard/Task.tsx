@@ -34,7 +34,7 @@ const Task: React.FC<TaskProps> = ({ task, index, column }) => {
           borderRadius: 2,
         }}
       >
-        {task.content}
+        {task?.interface}
       </div>
     </div>
   );

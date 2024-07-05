@@ -1,19 +1,23 @@
 import React, { useState } from "react";
 import KanbanColumn from "./KanbanColumn";
 import { BoardData, Column, Task } from "./types";
+import { mockData } from "../../mockData/data";
 
-const initialData: BoardData = {
-  tasks: {
-    "task-1": { id: "task-1", content: "Take out the garbage" },
-    "task-2": { id: "task-2", content: "Watch my favorite show" },
-    "task-3": { id: "task-3", content: "Charge my phone" },
-    "task-4": { id: "task-4", content: "Cook dinner" },
+const interfaceData = mockData.network_interfaces.reduce(
+  (acc: any, obj: any) => {
+    acc[obj.ip_address] = obj;
+    return acc;
   },
+  {}
+);
+const initialData: BoardData = {
+  tasks: interfaceData,
+
   columns: {
     "column-1": {
       id: "column-1",
       title: "To Do",
-      taskIds: ["task-1", "task-2", "task-3", "task-4"],
+      taskIds: mockData.network_interfaces.map((item) => item.ip_address),
     },
     "column-2": {
       id: "column-2",
@@ -37,8 +41,8 @@ const KanbanBoard: React.FC = () => {
     const startCol = JSON.parse(e.dataTransfer.getData("column"));
     data.columns[startCol.id].taskIds = data.columns[
       startCol.id
-    ].taskIds.filter((id) => id !== droppedTask.id);
-    data.columns[column.id].taskIds.push(droppedTask.id);
+    ].taskIds.filter((id) => id !== droppedTask.ip_address);
+    data.columns[column.id].taskIds.push(droppedTask.ip_address);
     setData({ ...data });
   };
 
