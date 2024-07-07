@@ -16,7 +16,7 @@ const ConnectionMap = ({ expandBtn, setExpand, isExpand }: Props) => {
           onClick={() => setExpand((prev) => !prev)}
         />
       </div>
-      <div style={{display: "flex", flexDirection: "row", overflowY: "scroll", width: "100%"}}>
+      <div style={{display: "flex", flexDirection: "row", overflowX: "hidden", width: "100%"}}>
         <KanbanBoard />
       </div>
     </div>

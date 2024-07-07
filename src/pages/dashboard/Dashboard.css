@@ -43,10 +43,11 @@
 .top-card {
     display: flex;
     flex: 5;
-    padding: 16px;
+    padding: 10px;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    max-height: 85vh;
 }
 
 .limit-top-card {

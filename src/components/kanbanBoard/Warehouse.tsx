@@ -2,27 +2,22 @@ import React from "react";
 import Task from "./Task";
 import { Column as ColumnType, Task as TaskType } from "./types";
 import "./kanban.css";
-interface ColumnProps {
+
+interface WarehouseProps {
   column: ColumnType;
   tasks: TaskType[];
   onDragEnd: (e: any, column: ColumnType) => void;
 }
 
-const KanbanColumn: React.FC<ColumnProps> = ({ column, tasks, onDragEnd }) => {
+const Warehouse: React.FC<WarehouseProps> = ({ column, tasks, onDragEnd }) => {
   return (
-    <div className="column-container">
-      <div className="column-title-container">
-        <h3>{column.title}</h3>
-      </div>
-
+    <div className="warehouse-container">
       <div
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => onDragEnd(e, column)}
         style={{
-          background: "lightgrey",
           padding: 8,
           flex: 10,
-          minHeight: 100,
         }}
       >
         {tasks.map((task, index) => (
@@ -38,4 +33,4 @@ const KanbanColumn: React.FC<ColumnProps> = ({ column, tasks, onDragEnd }) => {
   );
 };
 
-export default KanbanColumn;
+export default Warehouse;

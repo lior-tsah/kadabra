@@ -1,0 +1,27 @@
+.column-container {
+    margin: 1px;
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    gap: 16px;
+}
+
+.column-title-container {
+    display: flex;
+    background-color: #5074fc;
+    color: #fff;
+    flex: 1;
+    padding: 0 0 0 16px;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.warehouse-container {
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    gap: 16px;
+    height: 100%;
+    background-image: url('../../assets/components-icons/kanban-bg.png');
+    background-size: cover;
+}
