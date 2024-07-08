@@ -137,3 +137,28 @@
     line-height: 132%;
     /* 31.68px */
 }
+
+.tab-btns-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.content-dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+    align-self: stretch;
+}
+
+.content-dialog-description {
+    color: #000;
+    leading-trim: both;
+    text-edge: cap;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

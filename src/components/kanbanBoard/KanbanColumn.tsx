@@ -6,13 +6,20 @@ interface ColumnProps {
   column: ColumnType;
   tasks: TaskType[];
   onDragEnd: (e: any, column: ColumnType) => void;
+  classColor?: string;
 }
 
-const KanbanColumn: React.FC<ColumnProps> = ({ column, tasks, onDragEnd }) => {
+const KanbanColumn: React.FC<ColumnProps> = ({
+  column,
+  tasks,
+  onDragEnd,
+  classColor = "mixed-background",
+}) => {
   return (
-    <div className="column-container">
-      <div className="column-title-container">
+    <div className="column-container ">
+      <div className={`column-title-container ${classColor}`}>
         <h3>{column.title}</h3>
+        <p>{column.subtitle}</p>
       </div>
 
       <div

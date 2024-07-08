@@ -9,14 +9,30 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import ThreeDots from "../assets/components-icons/three-dots.svg";
+import DropdownButton from "./DropdownButton";
+import { useData } from "../context/DataContext";
 
-const CustomTable = ({ columns, data }: any) => {
+interface TableProps {
+  columns: any[];
+  data: any;
+  options?: any[];
+}
+const CustomTable = ({ columns, data, options = [] }: TableProps) => {
+  const { currentData, setCurrentData } = useData();
+
   const getStatus = (data: number) => {
     let res = "High";
     if (data < 4) res = "Low";
     else if (data < 8) res = "Medium";
     return res;
   };
+
+  const btn = {
+    name: "",
+    src: ThreeDots,
+    options: options,
+  };
+
   const renderCell = (row: any, col: any) => {
     switch (col.type) {
       case "status": {
@@ -54,24 +70,32 @@ const CustomTable = ({ columns, data }: any) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row: any, rowIndex: number) => (
-            <TableRow
-              key={rowIndex}
-              sx={{ cursor: row.onClick ? "pointer" : "auto" }}
-              onClick={row.onClick}
-            >
-              {columns.map((column: any) => (
-                <TableCell key={column.field}>
-                  {renderCell(row, column)}
+          {data.map((row: any, rowIndex: number) => {
+            const property = btn.options.find(
+              (option) => option.name === "Show Properties"
+            );
+            if (property) {
+              property.onPress = row.onClick;
+            }
+            return (
+              <TableRow
+                key={rowIndex}
+                sx={{ cursor: row.onClick ? "pointer" : "auto" }}
+                onClick={row.onClick}
+              >
+                {columns.map((column: any) => (
+                  <TableCell key={column.field}>
+                    {renderCell(row, column)}
+                  </TableCell>
+                ))}
+                <TableCell>
+                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <DropdownButton btn={btn} />
+                  </div>
                 </TableCell>
-              ))}
-              <TableCell>
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                  <img src={ThreeDots} className="input-svg pointer" />
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

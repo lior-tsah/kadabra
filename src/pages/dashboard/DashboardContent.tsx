@@ -7,26 +7,43 @@ import ConnectionMap from "./ConnectionMap";
 import CustomTable from "../../components/CustomTable";
 import GreenV from "../../assets/components-icons/green-v.svg";
 import Info from "../../assets/components-icons/info.svg";
+import Close from "../../assets/components-icons/close.svg";
+import KadabraDialog from "../../components/dialogs/KadabraDialog";
+import DashboardDialogContent from "./DashboardDialogContent";
+import { useData } from "../../context/DataContext";
+
 interface Props {
   data: PassiveDiscoverData;
 }
 const DashboardContent = ({ data }: Props) => {
+  const { currentData, setCurrentData } = useData();
   const [isExpand, setExpand] = useState(false);
-  const columns = [
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const devicesColumns = [
     { field: "interface", headerName: "Name" },
     { field: "ip_address", headerName: "Ip" },
     { field: "risk", headerName: "Risk status", type: "status" },
   ];
 
-  const columnsWithoutRisk = [
+  const agentsColumns = [
     { field: "name", headerName: "Name" },
     { field: "ip", headerName: "Ip" },
   ];
 
+  const handleOpenDialog = (item: any) => {
+    setOpenDialog(true);
+    setCurrentData(item);
+  };
+  const devicesOptions = [
+    { name: "Active Scan", onPress: () => console.log("click1!") },
+    { name: "Show Properties", onPress: () => setOpenDialog(true) },
+  ];
   //currently random risk status
   const interfaceData = data.network_interfaces.map((item) => ({
     ...item,
     risk: Math.floor(Math.random() * 10) + 1,
+    onClick: () => handleOpenDialog(item),
   }));
 
   const agentsData = useMemo(() => {
@@ -70,13 +87,17 @@ const DashboardContent = ({ data }: Props) => {
               <div className="card-title-container">
                 <label className="card-title">Devices</label>
               </div>
-              <CustomTable columns={columns} data={interfaceData} />
+              <CustomTable
+                columns={devicesColumns}
+                data={interfaceData}
+                options={devicesOptions}
+              />
             </div>
             <div className="card middle-right-card">
               <div className="card-title-container">
                 <label className="card-title">Agents</label>
               </div>
-              <CustomTable columns={columnsWithoutRisk} data={agentsData} />
+              <CustomTable columns={agentsColumns} data={agentsData} />
             </div>
           </div>
           <div className="bottom-cards-container">
@@ -101,6 +122,15 @@ const DashboardContent = ({ data }: Props) => {
           setExpand={setExpand}
         />
       )}
+
+      <KadabraDialog
+        open={openDialog}
+        deleteIcon={Close}
+        handleClose={() => setOpenDialog(false)}
+        title={"Properties"}
+      >
+        <DashboardDialogContent data={currentData} />
+      </KadabraDialog>
     </div>
   );
 };

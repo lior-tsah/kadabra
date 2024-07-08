@@ -10,10 +10,9 @@
     display: flex;
     background-color: #5074fc;
     color: #fff;
-    flex: 1;
-    padding: 0 0 0 16px;
+    flex: 2;
+    padding:  0 8px;
     flex-direction: column;
-    gap: 16px;
 }
 
 .warehouse-container {
@@ -24,4 +23,57 @@
     height: 100%;
     background-image: url('../../assets/components-icons/kanban-bg.png');
     background-size: cover;
+}
+
+.board-warehouse-container {
+    display: flex;
+    flex-direction: column;
+    flex: 6;
+}
+
+.board-gn-container {
+    display: flex;
+    flex-direction: column;
+    flex: 27;
+}
+
+.board-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
+}
+
+.board-group-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    gap: 7px;
+}
+
+.board-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+.label-board {
+    transform: rotate(270deg);
+    width: 30px;
+    font-family: Poppins;
+}
+
+.mixed-background {
+    background: linear-gradient(to bottom, #0cc4cc 50%, #0aa2e0 75%, #5074fc 100%);
+}
+
+.cyan-background {
+    background: #0cc4cc;
+}
+
+.blue-background {
+    background: #5074fc;
 }

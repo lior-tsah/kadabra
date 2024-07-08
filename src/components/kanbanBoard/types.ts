@@ -8,6 +8,7 @@ export interface Task {
 export interface Column {
   id: string;
   title: string;
+  subtitle: string;
   taskIds: string[];
 }
 

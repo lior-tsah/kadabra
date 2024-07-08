@@ -1,147 +1,144 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import KanbanColumn from "./KanbanColumn";
 import { BoardData, Column, Task } from "./types";
 import { mockData } from "../../mockData/data";
 import Warehouse from "./Warehouse";
-
-const interfaceData = mockData.network_interfaces.reduce(
-  (acc: any, obj: any) => {
-    acc[obj.ip_address] = obj;
-    return acc;
-  },
-  {}
-);
-const initialData: BoardData = {
-  tasks: interfaceData,
-
-  columns: {
-    "column-1": {
-      id: "column-1",
-      title: "Level 5",
-      taskIds: mockData.network_interfaces.map((item) => item.ip_address),
-    },
-    "column-2": {
-      id: "column-2",
-      title: "Level 4",
-      taskIds: [],
-    },
-    "column-3": {
-      id: "column-3",
-      title: "Level 3",
-      taskIds: [],
-    },
-    "column-4": {
-      id: "column-4",
-      title: "Level 2",
-      taskIds: [],
-    },
-    "column-5": {
-      id: "column-5",
-      title: "Level 1",
-      taskIds: [],
-    },
-    "column-6": {
-      id: "column-6",
-      title: "Level 0",
-      taskIds: [],
-    },
-    warehouse: {
-      id: "warehouse",
-      title: "warehouse",
-      taskIds: [],
-    },
-  },
-  columnOrder: [
-    "column-1",
-    "column-2",
-    "column-3",
-    "column-4",
-    "column-5",
-    "column-6",
-  ],
-};
+import { useData } from "../../context/DataContext";
 
 const KanbanBoard: React.FC = () => {
-  const [data, setData] = useState<BoardData>(initialData);
+  const { data, kanbanData, setKanbanData } = useData();
+  const interfaceData = data.network_interfaces.reduce((acc: any, obj: any) => {
+    acc[obj.ip_address] = obj;
+    return acc;
+  }, {});
 
-  const onDragEnd = (e: any, column: Column) => {
-    const droppedTask = JSON.parse(e.dataTransfer.getData("task"));
-    const startCol = JSON.parse(e.dataTransfer.getData("column"));
-    data.columns[startCol.id].taskIds = data.columns[
-      startCol.id
-    ].taskIds.filter((id) => id !== droppedTask.ip_address);
-    data.columns[column.id].taskIds.push(droppedTask.ip_address);
-    setData({ ...data });
+  const initialData: BoardData = {
+    tasks: interfaceData,
+
+    columns: {
+      "column-1": {
+        id: "column-1",
+        title: "Level 4/5",
+        subtitle: "Enterprise and Buisness Networks",
+        taskIds: [],
+      },
+      "column-2": {
+        id: "column-2",
+        title: "Level 3.5",
+        subtitle: "IT/OT DMZ",
+        taskIds: [],
+      },
+      "column-3": {
+        id: "column-3",
+        title: "Level 3",
+        subtitle: "Operations Systems",
+        taskIds: [],
+      },
+      "column-4": {
+        id: "column-4",
+        title: "Level 2",
+        subtitle: "Supervisory Control",
+        taskIds: [],
+      },
+      "column-5": {
+        id: "column-5",
+        title: "Level 1",
+        subtitle: "Process Control",
+        taskIds: [],
+      },
+      "column-6": {
+        id: "column-6",
+        title: "Level 0",
+        subtitle: "Phisical Process",
+        taskIds: [],
+      },
+      warehouse: {
+        id: "warehouse",
+        title: "",
+        subtitle: "",
+        taskIds: data.network_interfaces.map((item) => item.ip_address),
+      },
+    },
+    columnOrder: [
+      "column-1",
+      "column-2",
+      "column-3",
+      "column-4",
+      "column-5",
+      "column-6",
+    ],
   };
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        width: "100%",
-        height: "100%",
-        gap: "8px",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", flex: 6 }}>
+  useEffect(() => {
+    setKanbanData(initialData);
+  }, []);
+
+  const onDragEnd = (e: any, column: Column) => {
+    if (kanbanData) {
+      const droppedTask = JSON.parse(e.dataTransfer.getData("task"));
+      const startCol = JSON.parse(e.dataTransfer.getData("column"));
+      kanbanData.columns[startCol.id].taskIds = kanbanData.columns[
+        startCol.id
+      ].taskIds.filter((id) => id !== droppedTask.ip_address);
+      kanbanData.columns[column.id].taskIds.push(droppedTask.ip_address);
+      setKanbanData({ ...kanbanData });
+    }
+  };
+
+  const groupNames = [
+    { name: "IT", classColor: "cyan-background", idxStart: 0, idxEnd: 0 },
+    { name: "", classColor: undefined, idxStart: 1, idxEnd: 1 },
+    { name: "OT", classColor: "blue-background", idxStart: 2, idxEnd: 5 },
+  ];
+
+  return kanbanData ? (
+    <div className="board-container">
+      <div className="board-warehouse-container ">
         <Warehouse
           onDragEnd={onDragEnd}
-          column={data.columns["warehouse"]}
-          tasks={data.columns["warehouse"].taskIds.map(
-            (taskId) => data.tasks[taskId]
+          column={kanbanData.columns["warehouse"]}
+          tasks={kanbanData.columns["warehouse"].taskIds.map(
+            (taskId) => kanbanData.tasks[taskId]
           )}
         />
       </div>
-      <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#0cc4cc",
-            color: "#fff",
-          }}
-        >
-          <label style={{ transform: "rotate(90deg)" }}>IT</label>
-        </div>
-        <div
-          style={{ display: "flex", flexDirection: "column", flex: 1 }}
-        ></div>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            flex: 4,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: "#5074fc",
-            color: "#fff",
-          }}
-        >
-          <label style={{ transform: "rotate(90deg)" }}>OT</label>
-        </div>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", flex: 27 }}>
-        {data.columnOrder.map((columnId) => {
-          const column = data.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => data.tasks[taskId]);
+      <div className="board-gn-container">
+        {groupNames.map((groupName) => {
+          const colGroup = kanbanData.columnOrder
+            .filter(
+              (_, index) =>
+                groupName.idxStart <= index && groupName.idxEnd >= index
+            )
+            .map((columnId) => {
+              const column = kanbanData.columns[columnId];
+              const tasks = column.taskIds.map(
+                (taskId) => kanbanData.tasks[taskId]
+              );
+
+              return (
+                <KanbanColumn
+                  classColor={groupName.classColor}
+                  onDragEnd={onDragEnd}
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                />
+              );
+            });
 
           return (
-            <KanbanColumn
-              onDragEnd={onDragEnd}
-              key={column.id}
-              column={column}
-              tasks={tasks}
-            />
+            <div className="board-group-container">
+              <div className={`board-group ${groupName.classColor}`}>
+                <label className="label-board">{groupName.name}</label>
+              </div>
+              <div style={{ flex: 2 }}>{colGroup}</div>
+            </div>
           );
         })}
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default KanbanBoard;

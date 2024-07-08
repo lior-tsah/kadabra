@@ -75,3 +75,238 @@ export const mockData: PassiveDiscoverData = {
     { name: "Red10", ip: "46.19.85.230", type: ">" },
   ],
 };
+
+interface NmapRun {
+  args: string;
+  scanner: string;
+  start: string;
+  startstr: string;
+  version: string;
+  xmloutputversion: string;
+  debugging: Debugging;
+  host: Host[];
+  runstats: Runstats;
+  scaninfo: Scaninfo;
+  verbose: Verbose;
+}
+
+interface Debugging {
+  level: string;
+}
+
+interface Host {
+  endtime: string;
+  starttime: string;
+  address: Address;
+  hostnames: any; // Assuming hostnames can be null or another type
+  ports: Ports;
+  status: Status;
+  times: Times;
+}
+
+interface Address {
+  addr: string;
+  addrtype: string;
+}
+
+interface Ports {
+  extraports: Extraports;
+}
+
+interface Extraports {
+  count: string;
+  state: string;
+  extrareasons: ExtraReason[];
+}
+
+interface ExtraReason {
+  count: string;
+  reason: string;
+}
+
+interface Status {
+  reason: string;
+  reason_ttl: string;
+  state: string;
+}
+
+interface Times {
+  rttvar: string;
+  srtt: string;
+  to: string;
+}
+
+interface Runstats {
+  finished: Finished;
+  hosts: Hosts;
+}
+
+interface Finished {
+  elapsed: string;
+  exit: string;
+  summary: string;
+  time: string;
+  timestr: string;
+}
+
+interface Hosts {
+  down: string;
+  total: string;
+  up: string;
+}
+
+interface Scaninfo {
+  numservices: string;
+  protocol: string;
+  services: string;
+  type: string;
+}
+
+interface Verbose {
+  level: string;
+}
+
+// Sample JSON data converted to TypeScript object
+export const nmapRun: NmapRun = {
+  args: "nmap -Pn -sT --scan-delay 1s -p 80,102,443,502,530,593,789,1089-1091,1911,1962,2222,2404,4000,4840,4843,4911,9600,19999,20000,20547,34962-34964,34980,44818,46823,46824,55000-55003 -oX tmpNmapOutput.tmp 172.16.21.0 172.16.21.175 172.16.21.199",
+  scanner: "nmap",
+  start: "1720441060",
+  startstr: "Mon Jul  8 15:17:40 2024",
+  version: "7.80",
+  xmloutputversion: "1.04",
+  debugging: {
+    level: "0",
+  },
+  host: [
+    {
+      endtime: "1720441127",
+      starttime: "1720441061",
+      address: {
+        addr: "172.16.21.0",
+        addrtype: "ipv4",
+      },
+      hostnames: null,
+      ports: {
+        extraports: {
+          count: "33",
+          state: "filtered",
+          extrareasons: [
+            {
+              count: "17",
+              reason: "no-responses",
+            },
+            {
+              count: "16",
+              reason: "host-unreaches",
+            },
+          ],
+        },
+      },
+      status: {
+        reason: "user-set",
+        reason_ttl: "0",
+        state: "up",
+      },
+      times: {
+        rttvar: "9574",
+        srtt: "61548",
+        to: "1000000",
+      },
+    },
+    {
+      endtime: "1720441127",
+      starttime: "1720441061",
+      address: {
+        addr: "172.16.21.175",
+        addrtype: "ipv4",
+      },
+      hostnames: null,
+      ports: {
+        extraports: {
+          count: "33",
+          state: "filtered",
+          extrareasons: [
+            {
+              count: "17",
+              reason: "no-responses",
+            },
+            {
+              count: "16",
+              reason: "host-unreaches",
+            },
+          ],
+        },
+      },
+      status: {
+        reason: "user-set",
+        reason_ttl: "0",
+        state: "up",
+      },
+      times: {
+        rttvar: "9590",
+        srtt: "61467",
+        to: "1000000",
+      },
+    },
+    {
+      endtime: "1720441128",
+      starttime: "1720441061",
+      address: {
+        addr: "172.16.21.199",
+        addrtype: "ipv4",
+      },
+      hostnames: null,
+      ports: {
+        extraports: {
+          count: "33",
+          state: "filtered",
+          extrareasons: [
+            {
+              count: "19",
+              reason: "no-responses",
+            },
+            {
+              count: "14",
+              reason: "host-unreaches",
+            },
+          ],
+        },
+      },
+      status: {
+        reason: "user-set",
+        reason_ttl: "0",
+        state: "up",
+      },
+      times: {
+        rttvar: "12844",
+        srtt: "61611",
+        to: "1000000",
+      },
+    },
+  ],
+  runstats: {
+    finished: {
+      elapsed: "68.20",
+      exit: "success",
+      summary:
+        "Nmap done at Mon Jul  8 15:18:48 2024; 3 IP addresses (3 hosts up) scanned in 68.20 seconds",
+      time: "1720441128",
+      timestr: "Mon Jul  8 15:18:48 2024",
+    },
+    hosts: {
+      down: "0",
+      total: "3",
+      up: "3",
+    },
+  },
+  scaninfo: {
+    numservices: "33",
+    protocol: "tcp",
+    services:
+      "80,102,443,502,530,593,789,1089-1091,1911,1962,2222,2404,4000,4840,4843,4911,9600,19999-20000,20547,34962-34964,34980,44818,46823-46824,55000-55003",
+    type: "connect",
+  },
+  verbose: {
+    level: "0",
+  },
+};
