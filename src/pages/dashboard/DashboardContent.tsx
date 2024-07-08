@@ -1,4 +1,4 @@
-import { Agent, PassiveDiscoverData } from "../../mockData/data";
+import { Agent, nmapRun, PassiveDiscoverData } from "../../mockData/data";
 import "./Dashboard.css";
 import { useMemo, useState } from "react";
 import Expand from "../../assets/components-icons/expand-screen.svg";
@@ -16,7 +16,7 @@ interface Props {
   data: PassiveDiscoverData;
 }
 const DashboardContent = ({ data }: Props) => {
-  const { currentData, setCurrentData } = useData();
+  const { currentData, setCurrentData, setData } = useData();
   const [isExpand, setExpand] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -36,7 +36,20 @@ const DashboardContent = ({ data }: Props) => {
     setCurrentData(item);
   };
   const devicesOptions = [
-    { name: "Active Scan", onPress: () => console.log("click1!") },
+    {
+      name: "Active Scan",
+      onPress: () => {
+        data.network_interfaces = [
+          ...data.network_interfaces,
+          ...(nmapRun.host.map(h=>({
+            ...h,
+            interface: h.endtime,
+            ip_address: h.address.addr,
+          })) as any),
+        ];
+        setData({ ...data });
+      },
+    },
     { name: "Show Properties", onPress: () => setOpenDialog(true) },
   ];
   //currently random risk status

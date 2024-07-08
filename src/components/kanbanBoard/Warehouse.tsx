@@ -22,7 +22,7 @@ const Warehouse: React.FC<WarehouseProps> = ({ column, tasks, onDragEnd }) => {
       >
         {tasks.map((task, index) => (
           <Task
-            key={task.ip_address}
+            key={task?.ip_address}
             task={task}
             index={index}
             column={column}

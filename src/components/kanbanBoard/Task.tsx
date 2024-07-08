@@ -4,6 +4,9 @@ import KadabraDialog from "../dialogs/KadabraDialog";
 import DashboardDialogContent from "../../pages/dashboard/DashboardDialogContent";
 import { useData } from "../../context/DataContext";
 import Close from "../../assets/components-icons/close.svg";
+import DropdownButton from "../DropdownButton";
+import ThreeDots from "../../assets/components-icons/three-dots.svg";
+import { nmapRun } from "../../mockData/data";
 
 interface TaskProps {
   task: TaskType;
@@ -13,7 +16,7 @@ interface TaskProps {
 
 const Task: React.FC<TaskProps> = ({ task, index, column }) => {
   const [openDialog, setOpenDialog] = useState(false);
-  const { currentData, setCurrentData } = useData();
+  const { data, setData, currentData, setCurrentData } = useData();
 
   const handleDragOver = (event: any) => {
     event.preventDefault();
@@ -23,13 +26,40 @@ const Task: React.FC<TaskProps> = ({ task, index, column }) => {
     event.dataTransfer.setData("task", JSON.stringify(task));
     event.dataTransfer.setData("column", JSON.stringify(column));
   };
+  const handleOpenDialog = () => {
+    setCurrentData(task);
+    setOpenDialog(true);
+  };
+
+  const devicesOptions = [
+    {
+      name: "Active Scan",
+      onPress: () => {
+        if (data) {
+          data.network_interfaces = [
+            ...data.network_interfaces,
+            ...(nmapRun.host.map((h) => ({
+              ...h,
+              interface: h.endtime,
+              ip_address: h.address.addr,
+            })) as any),
+          ];
+          setData({ ...data });
+        }
+      },
+    },
+    { name: "Show Properties", onPress: handleOpenDialog },
+  ];
+  const btn = {
+    name: "",
+    src: ThreeDots,
+    options: devicesOptions,
+  };
+
   return (
     <>
       <div
-        onClick={() => {
-          setCurrentData(task);
-          setOpenDialog(true);
-        }}
+        onClick={handleOpenDialog}
         onDragStart={(e) => handleDragStart(e, task)}
         onDragOver={handleDragOver}
         // onDrop={(e) => handleDrop(e, camera)}
@@ -43,9 +73,13 @@ const Task: React.FC<TaskProps> = ({ task, index, column }) => {
           border: "1px solid lightgrey",
           borderRadius: 2,
           width: "fit-content",
+          display: "flex",
+          gap: "15px",
+          alignItems: "center"
         }}
       >
-        {task?.interface}
+        <label>{task?.interface}</label>
+        <DropdownButton btn={btn} />
       </div>
       <KadabraDialog
         open={openDialog}

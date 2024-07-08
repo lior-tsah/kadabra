@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import KanbanColumn from "./KanbanColumn";
 import { BoardData, Column, Task } from "./types";
-import { mockData } from "../../mockData/data";
 import Warehouse from "./Warehouse";
 import { useData } from "../../context/DataContext";
 
 const KanbanBoard: React.FC = () => {
   const { data, kanbanData, setKanbanData } = useData();
-  const interfaceData = data.network_interfaces.reduce((acc: any, obj: any) => {
-    acc[obj.ip_address] = obj;
-    return acc;
-  }, {});
+
+  const interfaceData = useMemo(
+    () =>
+      data?.network_interfaces.reduce((acc: any, obj: any) => {
+        acc[obj.ip_address] = obj;
+        return acc;
+      }, {}),
+    [data]
+  );
 
   const initialData: BoardData = {
     tasks: interfaceData,
@@ -56,7 +60,7 @@ const KanbanBoard: React.FC = () => {
         id: "warehouse",
         title: "",
         subtitle: "",
-        taskIds: data.network_interfaces.map((item) => item.ip_address),
+        taskIds: data?.network_interfaces.map((item) => item.ip_address) || [],
       },
     },
     columnOrder: [
@@ -72,6 +76,29 @@ const KanbanBoard: React.FC = () => {
   useEffect(() => {
     setKanbanData(initialData);
   }, []);
+
+  useEffect(() => {
+    if (kanbanData) {
+      const allTasksIds =
+        data?.network_interfaces.map((item) => item.ip_address) || [];
+      const newTasksIds = allTasksIds.filter((id: string) =>
+        checkNewId(id, kanbanData)
+      );
+      kanbanData.tasks = interfaceData;
+      kanbanData.columns["warehouse"].taskIds = [
+        ...(kanbanData.columns["warehouse"]?.taskIds || []),
+        ...newTasksIds,
+      ];
+      setKanbanData({ ...kanbanData });
+    }
+  }, [data]);
+
+  const checkNewId = (id: string, kanbanData: BoardData) => {
+    const keys = Object.keys(kanbanData.columns);
+    return keys.every((key: any) =>
+      kanbanData.columns[key]?.taskIds.every((t_id: string) => t_id !== id)
+    );
+  };
 
   const onDragEnd = (e: any, column: Column) => {
     if (kanbanData) {

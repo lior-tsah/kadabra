@@ -25,12 +25,7 @@ const KanbanColumn: React.FC<ColumnProps> = ({
       <div
         onDragOver={(e) => e.preventDefault()}
         onDrop={(e) => onDragEnd(e, column)}
-        style={{
-          background: "lightgrey",
-          padding: 8,
-          flex: 10,
-          minHeight: 100,
-        }}
+        className="kanban-row"
       >
         {tasks.map((task, index) => (
           <Task

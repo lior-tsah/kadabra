@@ -4,7 +4,7 @@ import { PassiveDiscoverData } from "../mockData/data";
 import { BoardData } from "../components/kanbanBoard/types";
 
 interface DataContextType {
-  data: any;
+  data?: PassiveDiscoverData ;
   setData: (val: any) => void;
   currentData: any;
   setCurrentData: (val: any) => void;

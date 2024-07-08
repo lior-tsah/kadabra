@@ -20,11 +20,15 @@ const DashboardDialogContent = ({ data }: Props) => {
       case 0:
         return (
           <div>
-            {Object.entries(data).map(([key, value]) => (
-              <p className="content-dialog-description" key={key}>
-                {key}: {value}
-              </p>
-            ))}
+            {Object.entries(data).map(([key, value]) =>
+              typeof value !== "object" ? (
+                <p className="content-dialog-description" key={key}>
+                  {key}: {value}
+                </p>
+              ) : (
+                <></>
+              )
+            )}
           </div>
         );
       case 1:
