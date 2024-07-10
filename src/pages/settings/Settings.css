@@ -1,0 +1,18 @@
+.title-table-container {
+    display: flex;
+    padding: 10px 0px;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.title-table {
+    color: #00A800;
+    /* font-family: Inconsolata; */
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 132%;
+    /* 23.76px */
+}

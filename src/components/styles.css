@@ -112,3 +112,10 @@
 .low-title {
     color: #00A800;
 }
+
+.icon-cell-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}

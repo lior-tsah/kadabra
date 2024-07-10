@@ -15,9 +15,15 @@ import { useData } from "../context/DataContext";
 interface TableProps {
   columns: any[];
   data: any;
-  options?: any[];
+  icon?: string;
+  hideTitleHeaders?: boolean;
 }
-const CustomTable = ({ columns, data, options = [] }: TableProps) => {
+const CustomTable = ({
+  columns,
+  data,
+  icon = "",
+  hideTitleHeaders = false,
+}: TableProps) => {
   const { currentData, setCurrentData } = useData();
 
   const getStatus = (data: number) => {
@@ -25,12 +31,6 @@ const CustomTable = ({ columns, data, options = [] }: TableProps) => {
     if (data < 4) res = "Low";
     else if (data < 8) res = "Medium";
     return res;
-  };
-
-  const btn = {
-    name: "",
-    src: ThreeDots,
-    options: options,
   };
 
   const renderCell = (row: any, col: any) => {
@@ -42,6 +42,26 @@ const CustomTable = ({ columns, data, options = [] }: TableProps) => {
             <label className={`status-table ${status.toLowerCase()}-title`}>
               {status}
             </label>
+          </div>
+        );
+      }
+      case "titleWithicon": {
+        return (
+          <div className="icon-cell-container">
+            <img src={icon} />
+            <label>{row[col.field]}</label>
+          </div>
+        );
+      }
+      case "option": {
+        const btn = {
+          name: "",
+          src: ThreeDots,
+          options: row.options || [],
+        };
+        return (
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <DropdownButton btn={btn} />
           </div>
         );
       }
@@ -59,24 +79,19 @@ const CustomTable = ({ columns, data, options = [] }: TableProps) => {
       }}
     >
       <Table>
-        <TableHead>
-          <TableRow>
-            {columns.map((column: any) => (
-              <TableCell sx={{ fontWeight: 600 }} key={column.field}>
-                {column.headerName}
-              </TableCell>
-            ))}
-            <TableCell sx={{ fontWeight: 600 }}>{""}</TableCell>
-          </TableRow>
-        </TableHead>
+        {!hideTitleHeaders && (
+          <TableHead>
+            <TableRow>
+              {columns.map((column: any) => (
+                <TableCell sx={{ fontWeight: 600 }} key={column.field}>
+                  {column.headerName}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+        )}
         <TableBody>
           {data.map((row: any, rowIndex: number) => {
-            const property = btn.options.find(
-              (option) => option.name === "Show Properties"
-            );
-            if (property) {
-              property.onPress = row.onClick;
-            }
             return (
               <TableRow
                 key={rowIndex}
@@ -88,11 +103,6 @@ const CustomTable = ({ columns, data, options = [] }: TableProps) => {
                     {renderCell(row, column)}
                   </TableCell>
                 ))}
-                <TableCell>
-                  <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                    <DropdownButton btn={btn} />
-                  </div>
-                </TableCell>
               </TableRow>
             );
           })}

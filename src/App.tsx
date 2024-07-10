@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import WrapperPage from "./pages/wrapper/WrapperPage";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Settings from "./pages/settings/Settings";
 import LoginViaGoogle from "./pages/login/LoginViaGoogle";
 import {DataProvider} from "./context/DataContext";
 
@@ -26,6 +27,14 @@ function App() {
               <WrapperPage>
                 <div>hello from home</div>
               </WrapperPage>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <WrapperPage>
+                <Settings />
+                </WrapperPage>
             }
           />
         </Routes>

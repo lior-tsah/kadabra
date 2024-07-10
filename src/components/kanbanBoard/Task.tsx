@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Column, Task as TaskType } from "./types";
 import KadabraDialog from "../dialogs/KadabraDialog";
-import DashboardDialogContent from "../../pages/dashboard/DashboardDialogContent";
+import TabsDialogContent from "../dialogs/TabsDialogContent";
 import { useData } from "../../context/DataContext";
 import Close from "../../assets/components-icons/close.svg";
 import DropdownButton from "../DropdownButton";
@@ -12,6 +12,10 @@ interface TaskProps {
   task: TaskType;
   index: number;
   column: Column;
+}
+interface Option {
+  name: string;
+  onPress: () => void;
 }
 
 const Task: React.FC<TaskProps> = ({ task, index, column }) => {
@@ -31,7 +35,7 @@ const Task: React.FC<TaskProps> = ({ task, index, column }) => {
     setOpenDialog(true);
   };
 
-  const devicesOptions = [
+  const devicesOptions: Option[] = [
     {
       name: "Active Scan",
       onPress: () => {
@@ -75,7 +79,7 @@ const Task: React.FC<TaskProps> = ({ task, index, column }) => {
           width: "fit-content",
           display: "flex",
           gap: "15px",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <label>{task?.interface}</label>
@@ -87,7 +91,10 @@ const Task: React.FC<TaskProps> = ({ task, index, column }) => {
         handleClose={() => setOpenDialog(false)}
         title={"Properties"}
       >
-        <DashboardDialogContent data={currentData} />
+        <TabsDialogContent
+          data={currentData}
+          labels={["Info", "Ports", "CVE"]}
+        />
       </KadabraDialog>
     </>
   );

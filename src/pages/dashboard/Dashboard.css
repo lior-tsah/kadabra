@@ -51,7 +51,7 @@
 }
 
 .limit-top-card {
-    max-height: 25vh;
+    max-height: 27vh;
 }
 
 .middle-cards-container {
@@ -59,7 +59,7 @@
     flex: 4;
     flex-direction: row;
     gap: 16px;
-    max-height: 33.33vh;
+    max-height: 25.33vh;
 }
 
 .middle-left-card {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Menu, MenuItem } from "@mui/material";
 
-interface Option {
+ interface Option {
   name: string;
   onPress: () => void;
 }

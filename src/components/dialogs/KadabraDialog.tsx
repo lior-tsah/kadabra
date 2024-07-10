@@ -1,5 +1,6 @@
 import { Dialog } from "@mui/material";
 import "./Dialog.css";
+import Close from "../../assets/components-icons/close.svg";
 
 interface KadabraDialogProps {
   open: boolean;
@@ -7,11 +8,17 @@ interface KadabraDialogProps {
   title: string;
   titleIcon?: any;
   deleteIcon?: any;
-
   children: JSX.Element;
 }
 const KadabraDialog = (props: KadabraDialogProps) => {
-  const { open, handleClose, title, titleIcon, deleteIcon, children } = props;
+  const {
+    open,
+    handleClose,
+    title,
+    titleIcon,
+    deleteIcon = Close,
+    children,
+  } = props;
 
   const dialogStyle = {
     "& .MuiDialog-paper": {

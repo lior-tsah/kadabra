@@ -1,19 +1,17 @@
-import { Agent, PassiveDiscoverData } from "../../mockData/data";
-import "./Dashboard.css";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import CustomTabs from "../../components/CustomTabs";
 
 interface Props {
   data: object;
+  labels: string[]
 }
-const DashboardDialogContent = ({ data }: Props) => {
+const TabsDialogContent = ({ data, labels }: Props) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (_: any, newValue: number) => {
     setValue(newValue);
   };
-  const tabLabels = ["Info", "Ports", "CVE"];
 
   const renderTab = (index: number) => {
     switch (index) {
@@ -43,11 +41,11 @@ const DashboardDialogContent = ({ data }: Props) => {
         <CustomTabs
           handleChange={handleChange}
           value={value}
-          labels={tabLabels}
+          labels={labels}
         />
       </div>
       {renderTab(value)}
     </div>
   );
 };
-export default DashboardDialogContent;
+export default TabsDialogContent;

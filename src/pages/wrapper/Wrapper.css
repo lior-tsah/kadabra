@@ -13,13 +13,22 @@
     box-shadow: 0px 4px 12px 0px rgba(15, 6, 0, 0.04);
 }
 
+.logo-container {
+    flex: 1;
+}
+
 .side-bar-icons {
+    flex: 4;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    height: 100%;
+    width: 100%;
     gap: 25px;
+}
+
+.bottom {
+    justify-content: flex-end;
 }
 
 .item {
@@ -32,7 +41,7 @@
 }
 
 .item:hover {
-  background: #ededed;
+    background: #ededed;
 }
 
 .selected-item {
@@ -151,11 +160,11 @@
 .wrapper-container {
     display: flex;
     flex-direction: row;
-    background-color:#FCFCFC;
+    background-color: #FCFCFC;
     /* padding: 15px; */
     /* gap: 15px; */
     width: 100vw;
-    
+
 }
 
 .page {
