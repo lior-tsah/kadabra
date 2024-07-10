@@ -4,6 +4,7 @@ import { useData } from "../../context/DataContext";
 import { PassiveDiscoverData } from "../../mockData/data";
 import CustomTabs from "../../components/CustomTabs";
 import Resources from "./Resources";
+import ContentPageWrapper from "../wrapper/ContentPageWrapper";
 const Settings: React.FC = () => {
   const { data } = useData();
   const [tabValue, setValue] = useState(0);
@@ -24,10 +25,7 @@ const Settings: React.FC = () => {
     }
   };
   return (
-    <div className="dashboard">
-      <div className="title-container">
-        <label className="title">Settings</label>
-      </div>
+    <ContentPageWrapper title="Settings">
       <div className="dashboard-content">
         <CustomTabs
           value={tabValue}
@@ -36,7 +34,7 @@ const Settings: React.FC = () => {
         />
         {renderTab(tabValue)}
       </div>
-    </div>
+    </ContentPageWrapper>
   );
 };
 export default Settings;

@@ -50,7 +50,7 @@ const SideBar: React.FC = () => {
     {
       icon: Part,
       name: "Integration",
-      route: "/dashboard",
+      route: "/integration",
       selectedIcon: PartBlue,
     },
     {

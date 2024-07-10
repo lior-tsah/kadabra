@@ -2,9 +2,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
 import WrapperPage from "./pages/wrapper/WrapperPage";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Integration from "./pages/integration/Integration";
 import Settings from "./pages/settings/Settings";
-import LoginViaGoogle from "./pages/login/LoginViaGoogle";
-import {DataProvider} from "./context/DataContext";
+import { DataProvider } from "./context/DataContext";
 
 function App() {
   return (
@@ -12,12 +12,19 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          {/* <Route path="/" element={<LoginViaGoogle/>} /> */}
           <Route
             path="/dashboard"
             element={
               <WrapperPage>
                 <Dashboard />
+              </WrapperPage>
+            }
+          />
+          <Route
+            path="/integration"
+            element={
+              <WrapperPage>
+                <Integration />
               </WrapperPage>
             }
           />
@@ -34,7 +41,7 @@ function App() {
             element={
               <WrapperPage>
                 <Settings />
-                </WrapperPage>
+              </WrapperPage>
             }
           />
         </Routes>

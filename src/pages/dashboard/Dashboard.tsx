@@ -4,6 +4,7 @@ import NoDataAvaliable from "../../components/NoDataAvaliable";
 import DashboardContent from "./DashboardContent";
 import { useData } from "../../context/DataContext";
 import { PassiveDiscoverData } from "../../mockData/data";
+import ContentPageWrapper from "../wrapper/ContentPageWrapper";
 const Dashboard: React.FC = () => {
   const { data } = useData();
   const renderDashboardData = (data: PassiveDiscoverData | undefined) => {
@@ -14,12 +15,11 @@ const Dashboard: React.FC = () => {
     }
   };
   return (
-    <div className="dashboard">
-      <div className="title-container">
-        <label className="title">Dashboard</label>
-      </div>
+    
+    <ContentPageWrapper title="Dashboard">
       {renderDashboardData(data)}
-    </div>
+    </ContentPageWrapper>
+    
   );
 };
 export default Dashboard;
